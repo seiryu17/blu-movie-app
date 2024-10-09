@@ -7,8 +7,8 @@ interface MovieListProps {
   movies: Movie[];
   onLoadMore: () => void;
   loading: boolean;
-  totalPages: number; // Add totalPages prop
-  currentPage: number; // Add currentPage prop
+  totalPages: number;
+  currentPage: number;
 }
 
 const MovieList: React.FC<MovieListProps> = ({
