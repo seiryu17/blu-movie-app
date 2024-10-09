@@ -1,5 +1,5 @@
-// src/pages/Home.tsx
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import MovieList from "../components/MovieList";
 import SearchBar from "../components/SearchBar";
 import Loader from "../components/Loader";
@@ -11,8 +11,13 @@ const Home: React.FC = () => {
   const [category, setCategory] = useState("popular");
   const [page, setPage] = useState(1);
   const movieListRef = useRef<HTMLDivElement | null>(null);
+  const location = useLocation();
 
-  const { movies, loading, error } = useMovies(category, searchQuery, page);
+  const { movies, loading, error, totalPages } = useMovies(
+    category,
+    searchQuery,
+    page
+  );
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -28,6 +33,12 @@ const Home: React.FC = () => {
     setSearchQuery("");
     setPage(1);
   };
+
+  useEffect(() => {
+    if (location.state && (location.state as any).fromMoviePage) {
+      movieListRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location.state]);
 
   return (
     <div className="bg-gray-900 text-white">
@@ -60,7 +71,13 @@ const Home: React.FC = () => {
         {loading ? (
           <Loader />
         ) : (
-          <MovieList movies={movies} onLoadMore={loadMore} loading={loading} />
+          <MovieList
+            movies={movies}
+            onLoadMore={loadMore}
+            loading={loading}
+            totalPages={totalPages}
+            currentPage={page}
+          />
         )}
       </div>
     </div>

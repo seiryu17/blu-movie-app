@@ -7,33 +7,44 @@ interface MovieListProps {
   movies: Movie[];
   onLoadMore: () => void;
   loading: boolean;
+  totalPages: number; // Add totalPages prop
+  currentPage: number; // Add currentPage prop
 }
 
 const MovieList: React.FC<MovieListProps> = ({
   movies,
   onLoadMore,
   loading,
+  totalPages,
+  currentPage,
 }) => {
   const uniqueMovies = Array.from(new Set(movies.map((movie) => movie.id)))
     .map((id) => movies.find((movie) => movie.id === id))
     .filter((movie): movie is Movie => movie !== undefined);
 
   return (
-    <div className="bg-gray-900 ">
+    <div className="bg-gray-900">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {uniqueMovies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
       <div className="flex justify-center mt-6">
-        <button
-          onClick={onLoadMore}
-          className={`bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-all duration-300 ease-in-out ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+        {currentPage < totalPages ? (
+          <button
+            onClick={onLoadMore}
+            className={`bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-all duration-300 ease-in-out ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
             }`}
-          disabled={loading}
-        >
-          {loading ? <Loader /> : "Load More"}
-        </button>
+            disabled={loading}
+          >
+            {loading ? <Loader /> : "Load More"}
+          </button>
+        ) : (
+          <p className="text-white text-center">
+            You are at the end of your journey. There is no data more.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovieDetail";
 import Loader from "../components/Loader";
 import MovieDetail from "../components/MovieDetail";
@@ -7,6 +7,7 @@ import MovieDetail from "../components/MovieDetail";
 const MoviePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { movie, loading, error } = useMovieDetail(Number(id));
+  const navigate = useNavigate();
 
   if (loading)
     return (
@@ -26,12 +27,12 @@ const MoviePage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
-      <Link
-        to="/"
-        className="text-blue-400 underline mb-4 inline-block transition duration-300 hover:text-blue-300"
+      <button
+        onClick={() => navigate("/", { state: { fromMoviePage: true } })}
+        className="text-blue-400 underline mb-4 transition duration-300 hover:text-blue-300"
       >
         &larr; Back to Movies
-      </Link>
+      </button>
       <div className="bg-gray-800 rounded-lg shadow-lg p-6 max-w-2xl w-full">
         <MovieDetail movie={movie} />
       </div>

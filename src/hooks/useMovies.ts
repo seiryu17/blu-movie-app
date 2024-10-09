@@ -12,6 +12,7 @@ export const useMovies = (
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -31,8 +32,9 @@ export const useMovies = (
         });
 
         setMovies((prev) => [...prev, ...response.data.results]);
+        setTotalPages(response.data.total_pages);
       } catch (err) {
-        console.log(err)
+        console.log(err);
         setError("Error fetching movies");
       } finally {
         setLoading(false);
@@ -44,7 +46,8 @@ export const useMovies = (
 
   useEffect(() => {
     setMovies([]);
+    setTotalPages(0);
   }, [searchQuery, category]);
 
-  return { movies, loading, error };
+  return { movies, loading, error, totalPages };
 };
