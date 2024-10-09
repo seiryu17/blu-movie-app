@@ -1,14 +1,14 @@
-// src/components/MovieDetail.tsx
 import React from "react";
 import { Movie } from "../types/Movie";
 import defaultImage from "../assets/notfound.png";
 
 interface MovieDetailProps {
-  movie: Movie;
+  movie: Movie | null;
 }
 
 const MovieDetail: React.FC<MovieDetailProps> = ({ movie }) => {
-  console.log(movie);
+  if (!movie) return null;
+
   return (
     <div className="p-4 bg-gray-900 text-white">
       <div className="flex justify-center mb-4">
@@ -30,7 +30,7 @@ const MovieDetail: React.FC<MovieDetailProps> = ({ movie }) => {
       <p className="mb-2">Rating: {movie.vote_average}</p>
       <h2 className="text-xl font-semibold mt-4">Main Cast:</h2>
       <ul className="mb-4">
-        {movie.credits?.cast?.map((actor: any) => (
+        {movie.credits?.cast?.map((actor) => (
           <li key={actor.id} className="text-gray-400">
             {actor.name}
           </li>

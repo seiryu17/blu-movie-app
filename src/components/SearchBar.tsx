@@ -1,4 +1,3 @@
-// src/components/SearchBar.tsx
 import React, { useState } from "react";
 
 interface SearchBarProps {
@@ -6,12 +5,12 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [query, setQuery] = useState(""); // Local state for the input
+  const [query, setQuery] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(query);
-    setQuery(""); // Clear input after submission
+    setQuery("");
   };
 
   return (
@@ -22,7 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       <input
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)} // Update local state on input change
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for a movie..."
         className="border border-gray-300 rounded-md p-3 w-full md:w-1/2 text-gray-800 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
       />

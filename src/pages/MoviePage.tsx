@@ -1,20 +1,19 @@
-// src/pages/MoviePage.tsx
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { useMovieDetail } from "../hooks/useMovieDetail"; // Import the custom hook
-import Loader from "../components/Loader"; // Import a loader component for better UX
-import MovieDetail from "../components/MovieDetail"; // Import the MovieDetail component
+import { useMovieDetail } from "../hooks/useMovieDetail";
+import Loader from "../components/Loader";
+import MovieDetail from "../components/MovieDetail";
 
 const MoviePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { movie, loading, error } = useMovieDetail(Number(id)); // Use the custom hook
+  const { movie, loading, error } = useMovieDetail(Number(id));
 
   if (loading)
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        <Loader /> {/* Display the loader in the center */}
+        <Loader />
       </div>
-    ); // Display a loader while fetching
+    );
 
   if (error)
     return (

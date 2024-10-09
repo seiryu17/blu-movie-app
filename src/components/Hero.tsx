@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
+import heroBg from '../assets/hero.webp';
 
 interface HeroProps {
   onExploreClick: () => void;
@@ -24,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
       className="relative text-white"
       style={{
         height: "100vh",
-        backgroundImage: `url('https://wallpapers.com/images/featured/hero-background-aefu926aqlmop6x3.jpg')`,
+        backgroundImage: `url(${heroBg})`,
         backgroundPosition: `center ${scrollY * 0.5}px`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

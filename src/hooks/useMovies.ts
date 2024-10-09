@@ -1,4 +1,3 @@
-// src/hooks/useMovies.ts
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Movie } from "../types/Movie";
@@ -33,6 +32,7 @@ export const useMovies = (
 
         setMovies((prev) => [...prev, ...response.data.results]);
       } catch (err) {
+        console.log(err)
         setError("Error fetching movies");
       } finally {
         setLoading(false);

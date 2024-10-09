@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Movie } from "../types/Movie";
+import { CrewMember, Movie } from "../types/Movie";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -34,13 +34,14 @@ export const useMovieDetail = (id: number) => {
             cast: creditsResponse.data.cast.slice(0, 5),
             director:
               creditsResponse.data.crew.find(
-                (member: any) => member.job === "Director"
+                (member: CrewMember) => member.job === "Director"
               )?.name || "Unknown",
           },
         };
 
         setMovie(movieData);
       } catch (err) {
+        console.log(err)
         setError("Error fetching movie details");
       } finally {
         setLoading(false);

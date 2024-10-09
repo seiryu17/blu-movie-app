@@ -1,6 +1,7 @@
 import React from "react";
 import MovieCard from "./MovieCard";
 import { Movie } from "../types/Movie";
+import Loader from "./Loader";
 
 interface MovieListProps {
   movies: Movie[];
@@ -27,12 +28,11 @@ const MovieList: React.FC<MovieListProps> = ({
       <div className="flex justify-center mt-6">
         <button
           onClick={onLoadMore}
-          className={`bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-all duration-300 ease-in-out ${
-            loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
-          }`}
+          className={`bg-blue-500 text-white font-semibold py-2 px-4 rounded transition-all duration-300 ease-in-out ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+            }`}
           disabled={loading}
         >
-          {loading ? "Loading..." : "Load More"}
+          {loading ? <Loader /> : "Load More"}
         </button>
       </div>
     </div>
